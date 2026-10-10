@@ -30,7 +30,6 @@ class Process implements Runnable {
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
     private int priority; // priority level from 1 to 10
-    private long creationTime;
     private long readyTime;
     private long totalWaitingTime;
     // Constructor to initialize the process with name, burst time, and time quantum
@@ -38,11 +37,9 @@ class Process implements Runnable {
         this.name = name;
         this.burstTime = burstTime;
         this.timeQuantum = timeQuantum;
-        this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
-        this.creationTime = System.currentTimeMillis(); // record process creation time
+        this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time 
         this.totalWaitingTime = 0 ; // initialize total waiting time to 0 
-        this.priority = (int)(Math.random()*10)+1; // random priority between 1 and 10
-        
+        this.priority = (int)(Math.random()*10)+1; // random priority between 1 and 10 
     }
 
     // This method will be called when the thread for this process is started
@@ -131,7 +128,7 @@ class Process implements Runnable {
         }
     }
 
-    // Getter methods for process name, burst time, and remaining time
+    // Getter methods for process name, burst time, remaining time , and priority
     public String getName() {
         return name;
     }
@@ -147,11 +144,11 @@ class Process implements Runnable {
     public int getPriority(){
         return priority;
     }
-
+    // Method to set the time when the process is added to the ready queue
     public void setReadyTime(){
         readyTime = System.currentTimeMillis();
     }
-
+    // Method to calculate the waiting time for the process based on its ready time and current time
     public void calculateWaitingTime(){
         long currentTime = System.currentTimeMillis();
         if (readyTime > 0){
