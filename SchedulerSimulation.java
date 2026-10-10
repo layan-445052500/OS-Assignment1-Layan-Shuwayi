@@ -30,6 +30,7 @@ class Process implements Runnable {
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
     private int priority; // priority level from 1 to 10
+    private long creationTime; // Time when the process was created 
     private long readyTime;
     private long totalWaitingTime;
     // Constructor to initialize the process with name, burst time, and time quantum
@@ -37,7 +38,8 @@ class Process implements Runnable {
         this.name = name;
         this.burstTime = burstTime;
         this.timeQuantum = timeQuantum;
-        this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time 
+        this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
+        this.creationTime = System.currentTimeMillis(); // record the creation time of the process 
         this.totalWaitingTime = 0 ; // initialize total waiting time to 0 
         this.priority = (int)(Math.random()*10)+1; // random priority between 1 and 10 
     }
